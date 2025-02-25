@@ -8,15 +8,15 @@ from selenium.webdriver.common.by import By
 
 
 class PracticeFormLocators:
-    LOCATOR_FIRSTNAME_TEXTFIELD = (By.ID, "#name-input")
+    LOCATOR_FIRSTNAME_TEXTFIELD = (By.ID, "name-input")
     LOCATOR_PASSWORD_TEXTFIELD = (By.CSS_SELECTOR, "label:nth-of-type(2) > input")
 
     # Локаторы favorite drink
-    LOCATOR_WATER_CHECKBOX = (By.LINK_TEXT, "Water")
-    LOCATOR_MILK_CHECKBOX = (By.LINK_TEXT, "Milk")
-    LOCATOR_COFFEE_CHECKBOX = (By.LINK_TEXT, "Coffee")
-    LOCATOR_WINE_CHECKBOX = (By.LINK_TEXT, "Wine")
-    LOCATOR_CTRL_ALT_DELIGHT_CHECKBOX = (By.LINK_TEXT, "Ctrl-Alt-Delight")
+    LOCATOR_WATER_CHECKBOX = (By.XPATH, "//label[contains(text(), 'Water')]")
+    LOCATOR_MILK_CHECKBOX = (By.XPATH, "//label[contains(text(), 'Milk')]")
+    LOCATOR_COFFEE_CHECKBOX = (By.XPATH, "//label[contains(text(), 'Coffee')]")
+    LOCATOR_WINE_CHECKBOX = (By.XPATH, "//label[contains(text(), 'Wine')]")
+    LOCATOR_CTRL_ALT_DELIGHT_CHECKBOX = (By.XPATH, "//label[contains(text(), 'Ctrl-Alt-Delight')]")
 
     # Локаторы favorite color
     LOCATOR_RED_RADIO = (By.XPATH, "//label[contains(text(), 'Red')]")
@@ -37,7 +37,7 @@ class PracticeFormLocators:
 
     LOCATOR_TOOLS = (By.XPATH, "//*[@id='feedbackForm']/ul")
 
-    LOCATOR_SUBMIT_BUTTON = (By.XPATH, "button:contains('Submit')")
+    LOCATOR_SUBMIT_BUTTON = (By.XPATH, "//button[@id='submit-btn']")
 
 class PracticeFormMethods(BasePage):
     def enter_firstname(self, firstname):
@@ -65,21 +65,27 @@ class PracticeFormMethods(BasePage):
 
     def click_color(self, color):
         if color == "Red":
-            self.find_element(PracticeFormLocators.LOCATOR_RED_RADIO).click()
+            element = self.find_element(PracticeFormLocators.LOCATOR_RED_RADIO)
+            self.driver.execute_script("arguments[0].click();", element)
         elif color == "Blue":
-            self.find_element(PracticeFormLocators.LOCATOR_BLUE_RADIO).click()
+            element = self.find_element(PracticeFormLocators.LOCATOR_BLUE_RADIO)
+            self.driver.execute_script("arguments[0].click();", element)
         elif color == "Yellow":
-            self.find_element(PracticeFormLocators.LOCATOR_YELLOW_RADIO).click()
+            element = self.find_element(PracticeFormLocators.LOCATOR_YELLOW_RADIO)
+            self.driver.execute_script("arguments[0].click();", element)
         elif color == "Green":
-            self.find_element(PracticeFormLocators.LOCATOR_GREEN_RADIO).click()
+            element = self.find_element(PracticeFormLocators.LOCATOR_GREEN_RADIO)
+            self.driver.execute_script("arguments[0].click();", element)
         elif color == "Ctrl-Alt-Delight":
-            self.find_element(PracticeFormLocators.LOCATOR_FFC0CB_RADIO).click()
+            element = self.find_element(PracticeFormLocators.LOCATOR_FFC0CB_RADIO)
+            self.driver.execute_script("arguments[0].click();", element)
         else:
             raise ValueError('Wrong color option Value!')
 
 
     def enter_dyl(self, dyl="Undecided"):
-        self.find_element(PracticeFormLocators.LOCATOR_DYL_DROPDOWN).click()
+        element = self.find_element(PracticeFormLocators.LOCATOR_DYL_DROPDOWN)
+        self.driver.execute_script("arguments[0].click();", element)
         if dyl == "Yes":
             self.find_element(PracticeFormLocators.LOCATOR_DYL_YES).click()
         elif dyl == "No":
@@ -97,7 +103,8 @@ class PracticeFormMethods(BasePage):
         self.find_element(PracticeFormLocators.LOCATOR_MESSAGE_TEXTFIELD).send_keys(PracticeFormMethods.count_tools(self))
 
     def click_submit(self):
-        self.find_element(PracticeFormLocators.LOCATOR_SUBMIT_BUTTON).click()
+        element = self.find_element(PracticeFormLocators.LOCATOR_SUBMIT_BUTTON)
+        self.driver.execute_script("arguments[0].click();", element)
 
 
 

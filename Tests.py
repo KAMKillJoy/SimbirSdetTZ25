@@ -14,7 +14,7 @@ def test_practice_form(browser):
     allure.dynamic.label("owner", "John Doe")
     allure.dynamic.link("https://practice-automation.com/form-fields/", name="Website")
 
-    practice_form = PracticeFormMethods(browser)  # выбор студента из модуля Students
+    practice_form = PracticeFormMethods(browser)
     user = Users.StudentVasia
 
     with allure.step("Открытие сайта"): practice_form.go_to_site()
