@@ -17,5 +17,3 @@ def browser():
     yield driver
     if close_browser:
         driver.quit()
-
-    

@@ -120,4 +120,3 @@ class PracticeFormMethods(BasePage):
     def check_alert(self):
         alert = self.driver.switch_to.alert
         return alert.text
-
