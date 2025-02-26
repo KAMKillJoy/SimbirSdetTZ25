@@ -4,15 +4,18 @@ from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.chrome.service import Service as ChromeService
 from selenium.webdriver.chrome.options import Options
 
-options = Options()
-#options.add_experimental_option("detach", True)  # отменяет автоматическое закрытие браузера.
-# Нужно для дебага.
-#  driver.quit() в функции browser тоже надо закомментить, чтобы браузер не закрывался.
+close_browser = True  # Можно отключить автоматическое зарывание браузера для дебага.
+
+
+if not close_browser:
+    options = Options()
+    options.add_experimental_option("detach", True)
 
 @pytest.fixture(scope="session")
 def browser():
     driver = webdriver.Chrome(service=ChromeService(executable_path=ChromeDriverManager().install()), options=options)
     yield driver
-    driver.quit()
+    if close_browser:
+        driver.quit()
 
     
