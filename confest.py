@@ -6,9 +6,10 @@ from selenium.webdriver.chrome.options import Options
 
 close_browser = True  # Можно отключить автоматическое зарывание браузера для дебага.
 
+options = Options()
 
 if not close_browser:
-    options = Options()
+
     options.add_experimental_option("detach", True)
 
 @pytest.fixture(scope="session")
