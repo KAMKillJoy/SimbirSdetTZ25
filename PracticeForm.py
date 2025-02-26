@@ -1,8 +1,3 @@
-import os
-
-from selenium.webdriver import Keys
-from selenium.webdriver.support.select import Select
-
 from BaseApp import BasePage
 from selenium.webdriver.common.by import By
 
@@ -39,15 +34,19 @@ class PracticeFormLocators:
 
     LOCATOR_SUBMIT_BUTTON = (By.XPATH, "//button[@id='submit-btn']")
 
+
 class PracticeFormMethods(BasePage):
     def enter_firstname(self, firstname):
         self.find_element(PracticeFormLocators.LOCATOR_FIRSTNAME_TEXTFIELD).send_keys(firstname)
 
+
     def enter_password(self, password):
         self.find_element(PracticeFormLocators.LOCATOR_PASSWORD_TEXTFIELD).send_keys(password)
 
+
     def enter_email(self, email):
         self.find_element(PracticeFormLocators.LOCATOR_EMAIL_TEXTFIELD).send_keys(email)
+
 
     def click_drink(self, drink):
         if drink == "Water":
@@ -63,10 +62,12 @@ class PracticeFormMethods(BasePage):
         else:
             raise ValueError('Wrong drink option Value!')
 
+
     def click_color(self, color):
         if color == "Red":
             element = self.find_element(PracticeFormLocators.LOCATOR_RED_RADIO)
-            self.driver.execute_script("arguments[0].click();", element)
+            self.driver.execute_script("arguments[0].click();", element)  # здесь и далее использую
+            # джаваскрипт для кликов, так как стандартный способ вызывает click intercepted.
         elif color == "Blue":
             element = self.find_element(PracticeFormLocators.LOCATOR_BLUE_RADIO)
             self.driver.execute_script("arguments[0].click();", element)
@@ -95,63 +96,28 @@ class PracticeFormMethods(BasePage):
         else:
             raise ValueError('Wrong color option Value!')
 
+
     def count_tools(self):
         parent_tools_element = self.find_element(PracticeFormLocators.LOCATOR_TOOLS)
         return len(parent_tools_element.find_elements("xpath", './li'))
 
-    def enter_message(self):
-        self.find_element(PracticeFormLocators.LOCATOR_MESSAGE_TEXTFIELD).send_keys(PracticeFormMethods.count_tools(self))
+
+    def find_longest_tool(self):
+        parent_tools_element = self.find_element(PracticeFormLocators.LOCATOR_TOOLS)
+        tools = [i.text for i in parent_tools_element.find_elements("xpath", './li')]
+        return max(tools, key=len)
+
+
+    def enter_message(self, message):
+        self.find_element(PracticeFormLocators.LOCATOR_MESSAGE_TEXTFIELD).send_keys(message)
+
 
     def click_submit(self):
         element = self.find_element(PracticeFormLocators.LOCATOR_SUBMIT_BUTTON)
         self.driver.execute_script("arguments[0].click();", element)
 
 
+    def check_alert(self):
+        alert = self.driver.switch_to.alert
+        return alert.text
 
-
-    def check_modal_result(self):
-        return self.check_exists(*PracticeFormLocators.LOCATOR_RESULT_MODAL_TABLE)
-
-    def read_result_modal_title(self):
-        return self.read_element(self.find_element
-                                 (PracticeFormLocators.LOCATOR_RESULT_MODAL_TITLE))
-
-    def read_result_modal_student_name(self):
-        return self.read_element(self.find_element
-                                 (PracticeFormLocators.LOCATOR_RESULT_MODAL_STUDENT_NAME))
-
-    def read_result_modal_student_email(self):
-        return self.read_element(self.find_element
-                                 (PracticeFormLocators.LOCATOR_RESULT_MODAL_STUDENT_EMAIL))
-
-    def read_result_modal_student_gender(self):
-        return self.read_element(self.find_element
-                                 (PracticeFormLocators.LOCATOR_RESULT_MODAL_STUDENT_GENDER))
-
-    def read_result_modal_student_mobile(self):
-        return self.read_element(self.find_element
-                                 (PracticeFormLocators.LOCATOR_RESULT_MODAL_STUDENT_MOBILE))
-
-    def read_result_modal_student_date_of_birth(self):
-        return self.read_element(self.find_element
-                                 (PracticeFormLocators.LOCATOR_RESULT_MODAL_STUDENT_DATE_OF_BIRTH))
-
-    def read_result_modal_student_subjects(self):
-        return self.read_element(self.find_element
-                                 (PracticeFormLocators.LOCATOR_RESULT_MODAL_STUDENT_SUBJECTS))
-
-    def read_result_modal_student_hobbies(self):
-        return self.read_element(self.find_element
-                                 (PracticeFormLocators.LOCATOR_RESULT_MODAL_STUDENT_HOBBIES))
-
-    def read_result_modal_student_picture(self):
-        return self.read_element(self.find_element
-                                 (PracticeFormLocators.LOCATOR_RESULT_MODAL_STUDENT_PICTURE))
-
-    def read_result_modal_student_address(self):
-        return self.read_element(self.find_element
-                                 (PracticeFormLocators.LOCATOR_RESULT_MODAL_STUDENT_ADDRESS))
-
-    def read_result_modal_state_and_city(self):
-        return self.read_element(self.find_element
-                                 (PracticeFormLocators.LOCATOR_RESULT_MODAL_STUDENT_STATE_AND_CITY))
