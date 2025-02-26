@@ -25,9 +25,9 @@ def test_practice_form(browser):
     with allure.step("Выбор ответа на вопрос 'Do you like automation?'"):
         practice_form.enter_dyl(user["DYL"])
     with allure.step("Введение email"): practice_form.enter_email(user["email"])
-    with allure.step("Введение сообщения"): practice_form.enter_message()
+    with allure.step("Введение сообщения"): practice_form.enter_message( f"{practice_form.count_tools()}\n"
+                                                                         f"{practice_form.find_longest_tool()}")
     with allure.step("Отправка формы"): practice_form.click_submit()
 
     with allure.step("Проверка наличия алерта с текстом 'Message received!'"):
-        alert = practice_form.driver.switch_to.alert
-        assert "Message received!" in alert.text
+        assert "Message received!" in practice_form.check_alert()
