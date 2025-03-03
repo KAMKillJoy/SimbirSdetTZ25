@@ -49,52 +49,50 @@ class PracticeFormMethods(BasePage):
 
 
     def click_drink(self, drink):
-        if drink == "Water":
-            self.find_element(PracticeFormLocators.LOCATOR_WATER_CHECKBOX).click()
-        elif drink == "Milk":
-            self.find_element(PracticeFormLocators.LOCATOR_MILK_CHECKBOX).click()
-        elif drink == "Coffee":
-            self.find_element(PracticeFormLocators.LOCATOR_COFFEE_CHECKBOX).click()
-        elif drink == "Wine":
-            self.find_element(PracticeFormLocators.LOCATOR_WINE_CHECKBOX).click()
-        elif drink == "Ctrl-Alt-Delight":
-            self.find_element(PracticeFormLocators.LOCATOR_CTRL_ALT_DELIGHT_CHECKBOX).click()
+        drink_dict = {
+            "Water": PracticeFormLocators.LOCATOR_WATER_CHECKBOX,
+            "Milk": PracticeFormLocators.LOCATOR_MILK_CHECKBOX,
+            "Coffee": PracticeFormLocators.LOCATOR_COFFEE_CHECKBOX,
+            "Wine": PracticeFormLocators.LOCATOR_WINE_CHECKBOX,
+            "Ctrl-Alt-Delight": PracticeFormLocators.LOCATOR_CTRL_ALT_DELIGHT_CHECKBOX
+        }
+
+        if drink_locator := drink_dict.get(drink):
+            element = self.find_element(drink_locator)
+            element.click()
         else:
             raise ValueError('Wrong drink option Value!')
 
 
     def click_color(self, color):
-        if color == "Red":
-            element = self.find_element(PracticeFormLocators.LOCATOR_RED_RADIO)
+        color_dict = {
+            "Red": PracticeFormLocators.LOCATOR_RED_RADIO,
+            "Blue": PracticeFormLocators.LOCATOR_BLUE_RADIO,
+            "Yellow": PracticeFormLocators.LOCATOR_YELLOW_RADIO,
+            "Green": PracticeFormLocators.LOCATOR_GREEN_RADIO,
+            "Ctrl-Alt-Delight": PracticeFormLocators.LOCATOR_FFC0CB_RADIO
+        }
+
+        if color_locator := color_dict.get(color):
+            element = self.find_element(color_locator)
             self.driver.execute_script("arguments[0].click();", element)  # здесь и далее использую
             # джаваскрипт для кликов, так как стандартный способ вызывает click intercepted.
-        elif color == "Blue":
-            element = self.find_element(PracticeFormLocators.LOCATOR_BLUE_RADIO)
-            self.driver.execute_script("arguments[0].click();", element)
-        elif color == "Yellow":
-            element = self.find_element(PracticeFormLocators.LOCATOR_YELLOW_RADIO)
-            self.driver.execute_script("arguments[0].click();", element)
-        elif color == "Green":
-            element = self.find_element(PracticeFormLocators.LOCATOR_GREEN_RADIO)
-            self.driver.execute_script("arguments[0].click();", element)
-        elif color == "Ctrl-Alt-Delight":
-            element = self.find_element(PracticeFormLocators.LOCATOR_FFC0CB_RADIO)
-            self.driver.execute_script("arguments[0].click();", element)
         else:
             raise ValueError('Wrong color option Value!')
 
 
-    def enter_dyl(self, dyl="Undecided"):
-        element = self.find_element(PracticeFormLocators.LOCATOR_DYL_DROPDOWN)
-        self.driver.execute_script("arguments[0].click();", element)
-        if dyl == "Yes":
-            self.find_element(PracticeFormLocators.LOCATOR_DYL_YES).click()
-        elif dyl == "No":
-            self.find_element(PracticeFormLocators.LOCATOR_DYL_NO).click()
-        elif dyl == "Undecided":
-            self.find_element(PracticeFormLocators.LOCATOR_DYL_UNDECIDED).click()
+    def enter_dyl(self, dyl):
+        dyl_dict = {
+            "Yes": PracticeFormLocators.LOCATOR_DYL_YES,
+            "No": PracticeFormLocators.LOCATOR_DYL_NO,
+            "Undecided": PracticeFormLocators.LOCATOR_DYL_UNDECIDED
+        }
+
+        if dyl_locator := dyl_dict.get(dyl):
+            element = self.find_element(dyl_locator)
+            self.driver.execute_script("arguments[0].click();", element)
         else:
-            raise ValueError('Wrong color option Value!')
+            raise ValueError('Wrong DYL option Value!')
 
 
     def count_tools(self):
