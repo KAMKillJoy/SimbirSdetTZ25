@@ -9,7 +9,6 @@ close_browser = True  # Можно отключить автоматическо
 options = Options()
 
 if not close_browser:
-
     options.add_experimental_option("detach", True)
 
 @pytest.fixture(scope="session")
