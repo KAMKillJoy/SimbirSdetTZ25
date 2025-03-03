@@ -1,6 +1,6 @@
 import allure
 
-from PracticeForm import PracticeFormMethods
+from PageObjects.PracticeForm import PracticeFormMethods
 import testData.Users as Users
 from confest import browser
 
