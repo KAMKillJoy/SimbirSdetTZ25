@@ -17,7 +17,8 @@ def test_form_fields(browser):
     form_fields = FormFieldsPageMethods(browser)
     user = users.Vasia
 
-    with allure.step("Открытие сайта"): form_fields.go_to_site()
+    with allure.step("Открытие сайта"):
+        form_fields.go_to_site()
     form_fields.enter_firstname(user["firstname"])
     form_fields.enter_password(user["password"])
     for drink in user["drinks"]:
@@ -26,7 +27,7 @@ def test_form_fields(browser):
         form_fields.click_color(color)
     form_fields.enter_dyl(user["DYL"])
     form_fields.enter_email(user["email"])
-    form_fields.enter_message( f"{form_fields.count_tools()}\n"
-                               f"{form_fields.find_longest_tool()}")
+    form_fields.enter_message(f"{form_fields.count_tools()}\n"
+                              f"{form_fields.find_longest_tool()}")
     form_fields.click_submit()
     assert "Message received!" in form_fields.check_alert()

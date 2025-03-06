@@ -8,7 +8,6 @@ class FormFieldsPageMethods(BasePage):
     def enter_firstname(self, firstname):
         self.find_element(FormFieldsPageLocators.LOCATOR_FIRSTNAME_TEXTFIELD).send_keys(firstname)
 
-
     @allure.step("Вводим пароль: {password}")
     def enter_password(self, password):
         self.find_element(FormFieldsPageLocators.LOCATOR_PASSWORD_TEXTFIELD).send_keys(password)
@@ -16,7 +15,6 @@ class FormFieldsPageMethods(BasePage):
     @allure.step("Вводим email: {email}")
     def enter_email(self, email):
         self.find_element(FormFieldsPageLocators.LOCATOR_EMAIL_TEXTFIELD).send_keys(email)
-
 
     @allure.step("Выбираем напиток: {drink}")
     def click_drink(self, drink):
@@ -65,11 +63,9 @@ class FormFieldsPageMethods(BasePage):
         else:
             raise ValueError('Wrong DYL option Value!')
 
-
     def count_tools(self):
         parent_tools_element = self.find_element(FormFieldsPageLocators.LOCATOR_TOOLS)
         return len(parent_tools_element.find_elements("xpath", './li'))
-
 
     def find_longest_tool(self):
         parent_tools_element = self.find_element(FormFieldsPageLocators.LOCATOR_TOOLS)
@@ -79,7 +75,6 @@ class FormFieldsPageMethods(BasePage):
     @allure.step("Вводим сообщение: {message}")
     def enter_message(self, message):
         self.find_element(FormFieldsPageLocators.LOCATOR_MESSAGE_TEXTFIELD).send_keys(message)
-
 
     @allure.step("Нажимаем submit (отправляем форму)")
     def click_submit(self):
